@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var log = require('libs/log')(module);
+var winston = require('winston');
 var HttpError = require('error').HttpError;
+var config = require('config');
 
 
 var app = express();
@@ -14,6 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('./middleware/sendHttpError'));
 require('./routes/users')(app);
 require('./routes/photos')(app);
+
+console.log(config.get("logger"));
+
+winston.handleExceptions(new winston.transports.File({
+	filename: config.get("logger")
+}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
