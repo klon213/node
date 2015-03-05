@@ -10,12 +10,15 @@ var HttpError = require('error').HttpError;
 var config = require('config');
 
 
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('./middleware/sendHttpError'));
+
 require('./routes/users')(app);
 require('./routes/photos')(app);
+//require('middleware/serverLog')(app);
 
 console.log(config.get("logger"));
 
@@ -85,6 +88,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 
 
 module.exports = app;

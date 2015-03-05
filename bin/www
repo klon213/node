@@ -32,6 +32,33 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+server.on('request', function(req, res) {
+	/*
+	 console.log(req.headers);
+	 console.log(req.query);
+	 console.log(req.body);
+	 */
+
+});
+
+server.on('request', function(req, res) {
+	/*
+	 console.log(req.headers);
+	 console.log(req.query);
+	 console.log(req.body);
+	 */
+
+	console.log('data');
+
+});
+
+
+/*
+server.on('data', function(req, res){
+	console.log(res);
+});
+*/
+
 /**
  * Normalize a port into a number, string, or false.
  */
