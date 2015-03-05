@@ -1,0 +1,13 @@
+{
+	"port": 666,
+	"mongoose": {
+		"uri": "mongodb://localhost/tdb",
+		"options": {
+			"server": {
+				"socketOptions": {
+					"keepAlive": 1
+				}
+			}
+		}
+	}
+}
