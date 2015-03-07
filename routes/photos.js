@@ -12,6 +12,7 @@ module.exports = function(app) {
 			if (err) return next(err);
 			res.json(photos);
 		});
+		next();
 	});
 
 	app.get('/photos/:id', function (req, res, next) {
@@ -21,12 +22,15 @@ module.exports = function(app) {
 			}
 			res.json(users);
 		});
+		next();
+
 	});
 
 	app.post('/photos', function (req, res, next) {
 		var photo = new mongoose.models.Photos(req.body);
 		res.json(photo);
 		photo.save(function(){console.log('saved')});
+		next();
 	});
 };
 

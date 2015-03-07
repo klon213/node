@@ -3,13 +3,18 @@ var mongoose = require('../libs/mongoose'),
 
 var schema= new Schema({
 
+	title: {
+		type: 'string',
+		ref: 'user'
+	},
+
 	user_id: {
 		type: Schema.ObjectId,
 		ref: 'user'
 	},
-	url: {
-		type: String,
-		required: true
+	photo_id: {
+		type: Schema.ObjectId,
+		ref: 'photos'
 	},
 	created: {
 		type: Date,
@@ -18,4 +23,4 @@ var schema= new Schema({
 });
 
 
-exports.Photos = mongoose.model('Photos', schema);
+exports.Albums = mongoose.model('Albums', schema);
