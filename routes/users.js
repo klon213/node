@@ -11,7 +11,10 @@ module.exports = function(app) {
 			if (err) return next(err);
 			res.json(users);
 		});
+		next();
 	});
+
+
 
 	app.get('/users/:id', function (req, res, next) {
 		User.findById(req.params.id, function (err, users) {
@@ -22,6 +25,7 @@ module.exports = function(app) {
 			//	if(err) return next(err);
 			res.json(users);
 		});
+		next();
 	});
 
 	/* add new userlisting. */
@@ -33,6 +37,7 @@ module.exports = function(app) {
 		var user = new mongoose.models.User(req.body);
 		res.json(user);
 		user.save(function(){console.log('saved')});
+		next();
 	});
 
 	app.put('/users/:id', function (req, res, next){
@@ -46,6 +51,7 @@ module.exports = function(app) {
 			}
 			res.json(users);
 		});
+		next();
 	});
 
 	app.delete('/users/:id', function (req, res, next){
@@ -59,6 +65,7 @@ module.exports = function(app) {
 				res.json(users);
 			}
 		});
+		next();
 	});
 };
 //module.exports = router;

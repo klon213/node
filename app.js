@@ -5,26 +5,36 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var log = require('libs/log')(module);
-var winston = require('winston');
-var HttpError = require('error').HttpError;
 var config = require('config');
+var winston = require('winston');
+winston.add(winston.transports.File, { filename: config.get("logger"), level: 'info' });
+var HttpError = require('error').HttpError;
 
 
 
 var app = express();
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('./middleware/sendHttpError'));
 
+
 require('./routes/users')(app);
 require('./routes/photos')(app);
+require('./routes/albums')(app);
+
+
+app.use(logResponseBody);
 //require('middleware/serverLog')(app);
 
 console.log(config.get("logger"));
 
+
 winston.handleExceptions(new winston.transports.File({
 	filename: config.get("logger")
 }));
+
 
 
 // view engine setup
@@ -33,6 +43,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
+
 app.use(logger('dev'));
 
 //app.use(cookieParser());
@@ -89,6 +100,36 @@ app.use(function(err, req, res, next) {
   });
 });
 
+function logResponseBody(req, res, next) {
 
+	winston.info('=====REQUEST START=====');
+	winston.info(req.headers);
+	winston.info(req.query);
+	winston.info(req.body);
+	winston.info('=====REQUEST END=====');
+	var oldWrite = res.write,
+		oldEnd = res.end;
+
+	var chunks = [];
+
+	res.write = function (chunk) {
+		chunks.push(chunk);
+
+		oldWrite.apply(res, arguments);
+	};
+
+	res.end = function (chunk) {
+		if (chunk)
+			chunks.push(chunk);
+
+		var body = Buffer.concat(chunks).toString('utf8');
+		winston.info('=*=*=RESPONSE START=*=*=');
+		winston.info(req.path, body);
+		winston.info('=*=*=RESPONSE END=*=*=');
+		oldEnd.apply(res, arguments);
+	};
+
+	next();
+}
 
 module.exports = app;

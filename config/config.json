@@ -10,5 +10,5 @@
 			}
 		}
 	},
-	"logger": "logFile.tst"
+	"logger": "./logs/server.log"
 }
