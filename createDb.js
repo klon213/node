@@ -69,6 +69,6 @@ function createPhotos(album, callback){
 
 	async.each(photos, function(photoData, callback){
 		var photo = new mongoose.models.Photos(photoData);
-		photo.save(callback);
+		photo.save();
 	}, callback);
 }
