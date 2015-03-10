@@ -6,7 +6,7 @@ var HttpError = require('../error').HttpError;
 
 module.exports = function(app) {
 	/* GET users listing. */
-	app.get('/users', function (req, res, next) {
+	app.get('/user', function (req, res, next) {
 		User.find({}, function (err, users) {
 			if (err) return next(err);
 			next();
@@ -16,8 +16,7 @@ module.exports = function(app) {
 	});
 
 
-
-	app.get('/users/:id', function (req, res, next) {
+	app.get('/user/:id', function (req, res, next) {
 		User.findById(req.params.id, function (err, users) {
 			if (!users) {
 				console.log('error');
@@ -30,12 +29,7 @@ module.exports = function(app) {
 
 	});
 
-	/* add new userlisting. */
-
-	/*		var user = new mongoose.models.User(userData);
-	 		user.save(callback)
-	 */
-	app.post('/users', function (req, res, next) {
+	app.post('/user', function (req, res, next) {
 		var user = new mongoose.models.User(req.body);
 		next();
 		res.json(user);
@@ -43,7 +37,7 @@ module.exports = function(app) {
 
 	});
 
-	app.put('/users/:id', function (req, res, next){
+	app.put('/user/:id', function (req, res, next){
 		console.log(req.params.id);
 		var query = {_id: req.params.id};
 		User.findOneAndUpdate(query, {username: req.body.username}, function(err, users){
@@ -58,7 +52,7 @@ module.exports = function(app) {
 
 	});
 
-	app.delete('/users/:id', function (req, res, next){
+	app.delete('/user/:id', function (req, res, next){
 		console.log(req.params.id);
 		//var query = {_id: req.params.id};
 		User.findByIdAndRemove(req.params.id, function(err, users){
@@ -72,4 +66,3 @@ module.exports = function(app) {
 		});
 	});
 };
-//module.exports = router;

@@ -12,23 +12,23 @@ module.exports = function(app) {
 			res.json(photos);
 		});
 	});
-	/*
-	 app.get('/city/:id', function (req, res, next) {
-	 Cities.findById(req.params.id, function (err, users) {
-	 if (!photos) {
-	 next(new HttpError(404, "user not found"));
-	 }
-	 next();
-	 res.json(users);
+
+	 app.get('/bill/:id', function (req, res, next) {
+		 Bills.findById(req.params.id, function (err, bills) {
+			 if (!bills) {
+			 	next(new HttpError(404, "bill not found"));
+			 }
+			 next();
+			 res.json(bills);
+		 });
 	 });
 
-	 });
-	 */
-	app.post('/city', function (req, res, next) {
-		var city = new mongoose.models.City(req.body);
+
+	app.post('/bill', function (req, res, next) {
+		var bill = new mongoose.models.Bill(req.body);
 		next();
-		res.json(city);
 		city.save(function(){console.log('saved')});
+		res.json(bill);
 	});
 };
 
