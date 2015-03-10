@@ -12,12 +12,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('./middleware/sendHttpError'));
 
-
 require('./routes/users')(app);
+require('./routes/city')(app);
+require('./routes/bill')(app);
 
+/*
 require('./routes/photos')(app);
 require('./routes/albums')(app);
-
+*/
 
 app.use(logResponseBody);
 //require('middleware/serverLog')(app);

@@ -14,4 +14,4 @@ var schema= new Schema({
 });
 
 
-exports.Photos = mongoose.model('Photos', schema);
+exports.City = mongoose.model('City', schema);
