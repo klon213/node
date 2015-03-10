@@ -2,9 +2,9 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var config = require('config');
+var config = require('./config');
 var winston = require('winston');
-var HttpError = require('error').HttpError;
+var HttpError = require('./error').HttpError;
 var app = express();
 
 winston.add(winston.transports.File, { filename: config.get("logger"), level: 'info' });

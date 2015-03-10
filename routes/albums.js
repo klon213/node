@@ -1,6 +1,6 @@
 var mongoose = require('../libs/mongoose');
 var Albums = require('../models/albums').Albums;
-var HttpError = require('error').HttpError;
+var HttpError = require('../error').HttpError;
 
 module.exports = function(app) {
 	/* GET albums listing. */

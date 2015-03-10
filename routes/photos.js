@@ -2,7 +2,7 @@
 //var router = express.Router();
 var mongoose = require('../libs/mongoose');
 var Photos = require('../models/photos').Photos;
-var HttpError = require('error').HttpError;
+var HttpError = require('../error').HttpError;
 
 module.exports = function(app) {
 	/* GET users listing. */
