@@ -3,7 +3,7 @@ var mongoose = require('../libs/mongoose'),
 
 var schema= new Schema({
 
-	user_id: {
+	album_id: {
 		type: Schema.ObjectId,
 		ref: 'user'
 	},

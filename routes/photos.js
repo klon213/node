@@ -10,9 +10,9 @@ module.exports = function(app) {
 	app.get('/photos', function (req, res, next) {
 		Photos.find({}, function (err, photos) {
 			if (err) return next(err);
+			next();
 			res.json(photos);
 		});
-		next();
 	});
 
 	app.get('/photos/:id', function (req, res, next) {
@@ -20,17 +20,17 @@ module.exports = function(app) {
 			if (!photos) {
 				next(new HttpError(404, "user not found"));
 			}
+			next();
 			res.json(users);
 		});
-		next();
 
 	});
 
 	app.post('/photos', function (req, res, next) {
 		var photo = new mongoose.models.Photos(req.body);
+		next();
 		res.json(photo);
 		photo.save(function(){console.log('saved')});
-		next();
 	});
 };
 

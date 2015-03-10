@@ -9,9 +9,10 @@ module.exports = function(app) {
 	app.get('/users', function (req, res, next) {
 		User.find({}, function (err, users) {
 			if (err) return next(err);
+			next();
 			res.json(users);
 		});
-		next();
+
 	});
 
 
@@ -23,9 +24,10 @@ module.exports = function(app) {
 				next(new HttpError(404, "user not found"));
 			}
 			//	if(err) return next(err);
+			next();
 			res.json(users);
 		});
-		next();
+
 	});
 
 	/* add new userlisting. */
@@ -35,9 +37,10 @@ module.exports = function(app) {
 	 */
 	app.post('/users', function (req, res, next) {
 		var user = new mongoose.models.User(req.body);
+		next();
 		res.json(user);
 		user.save(function(){console.log('saved')});
-		next();
+
 	});
 
 	app.put('/users/:id', function (req, res, next){
@@ -49,9 +52,10 @@ module.exports = function(app) {
 				console.log('error');
 				next(new HttpError(404, "user not found"));
 			}
+			next();
 			res.json(users);
 		});
-		next();
+
 	});
 
 	app.delete('/users/:id', function (req, res, next){
@@ -62,10 +66,10 @@ module.exports = function(app) {
 			if (!users) {
 				next(new HttpError(404, "user not found"));
 			}else {
+				next();
 				res.json(users);
 			}
 		});
-		next();
 	});
 };
 //module.exports = router;

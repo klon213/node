@@ -8,9 +8,10 @@ module.exports = function(app) {
 	app.get('/albums', function (req, res, next) {
 		Albums.find({}, function (err, albums) {
 			if (err) return next(err);
+			next();
 			res.json(albums);
 		});
-		next();
+
 	});
 
 	app.get('/albums/:id', function (req, res, next) {
@@ -26,9 +27,10 @@ module.exports = function(app) {
 
 	app.post('/albums', function (req, res, next) {
 		var album = new mongoose.models.Albums(req.body);
+		next();
 		res.json(album);
 		album.save(function(){console.log('saved')});
-		next();
+
 	});
 };
 

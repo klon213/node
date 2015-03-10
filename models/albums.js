@@ -12,10 +12,7 @@ var schema= new Schema({
 		type: Schema.ObjectId,
 		ref: 'user'
 	},
-	photo_id: {
-		type: Schema.ObjectId,
-		ref: 'photos'
-	},
+
 	created: {
 		type: Date,
 		default: Date.now
